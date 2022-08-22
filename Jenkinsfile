@@ -4,7 +4,7 @@ def userdocker = "anogo"
 def credential = "dockerHub"
 def registry = "https://hub.docker.com"
 def nomProjet = "Test-house-innovation"
-def repository = "https://github.com/Tajjospin/house_innovation_test.git"
+def repository = "https://github.com/Tajjospin/house_innovation.git"
 def portApp = 80
 def portContainer = 8100
 def nomImgae = userdocker+"/"+nomProjet
@@ -12,7 +12,7 @@ def nomImgae = userdocker+"/"+nomProjet
 /*def image = nomImgae+"_dev:tagVersion-$BUILD_ID"*/
 def image = nomImgae+"_dev:tagVersion-2"
 /*def imageProd = nomImgae+"_prod:tagVersion-$BUILD_ID"*/
-def containerName = "devops-"+userGithub+"-"+nomProjet
+/*def containerName = "devops-"+userGithub+"-"+nomProjet*/
 
 
 pipeline{
@@ -22,17 +22,19 @@ pipeline{
     }
 
     stages{
-       /* stage('Clone'){
+        stage('Clone'){
             steps{
                 git (branch: 'main', credentialsId: credential, url: repository)
             }
             
-        }*/
+        }
 
 
         stage('Build image'){
             steps{
                 script{
+                    sh '''
+                        cd house_innovation '''
                     docker.build(image, '.')
                 }
             }
@@ -42,6 +44,7 @@ pipeline{
         stage('test acceptance'){
             steps{
                 script{
+                    
                     docker.image(image).withRun("-p "+portContainer+":"+portApp+" --name "+nomProjet+"-test-BUILD_ID"){ c ->
                     sh 'sleep 20s'
                     sh '''curl localhost:'''+portContainer+''' | grep -q "Author: Roody95"'''
