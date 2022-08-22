@@ -50,11 +50,13 @@ pipeline{
         }
     }
     stage('Push sur dockerhub'){
-        script{
-            sh '''
-            docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
-            docker push $DOCKER_ID/$IMAGE_NAME:$IMAGE_TAG_DEV
-            '''
+        steps{
+            script{
+              sh '''
+                 docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
+                 docker push $DOCKER_ID/$IMAGE_NAME:$IMAGE_TAG_DEV
+                 '''
+            }
         }
     }
 
