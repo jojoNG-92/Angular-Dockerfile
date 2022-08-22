@@ -1,125 +1,101 @@
-/* Author: Jospin Anogo   anogoj@gmail.com */
-
-def userdocker = "anogo"
-def credentialID = "dockerHub"
-def registry = "https://hub.docker.com"
-def nomProjet = "test-house-innovation"
-def repository = "https://github.com/Tajjospin/house_innovation.git"
-def portApp = 80
-def portContainer = 8100
-def nomImgae = userdocker+"/"+nomProjet
-<<<<<<< HEAD
-def version = "-$BUIL_ID"
-def IMAGE_DEV_TAG = "-dev:Version-$BUILD_ID"
-def image = nomImgae+"_dev:tagVersion-$BUILD_ID"*
-/*def image = nomImgae+"_dev:tagVersion-2"*/
-/*def imageProd = nomImgae+"_prod:tagVersion-$BUILD_ID"*/
-=======
-/*def version = "-$BUIL_ID"*/
-/*def image = nomImgae+"_dev:tagVersion-$BUILD_ID"*/
-def image = nomImgae+"-dev:tagVersion-2"
-/*def imageProd = nomImgae+"-prod:tagVersion-$BUILD_ID"*/
->>>>>>> 10f2d10228920965cc613d5fbfedbcbf9acaa768
-/*def containerName = "devops-"+userGithub+"-"+nomProjet*/
-
+/* Author: Jospin Anogo   anogoj@gmail.com 
+prérequis: 
+1) configurer une variable "DOCKER_PASSWORD" dans les paramêtres du serveur jenkins
+2) configurer les "notifications par email" sur le serveur jenkins, mois j'ai utilisé "gmail;com"
+3) installer "trivy" sur le serveur jenkins 
+*/
+def PROJET = "Test House innovation"
+def DOCKER_ID = "anogo"
+def USER_EMAIL = "anogoj@gmail.com"
+def IMAGE_NAME = "house-innovation"
+def IMAGE_TAG_DEV = DOCKER_ID+"/"+IMAGE_NAME+"-dev:$BUILD_ID"
+def IMAGE_TAG_PROD = DOCKER_ID+"/"+IMAGE_NAME+"-prod:$BUILD_ID"
+def REPOSITORY = "https://github.com/Tajjospin/house_innovation.git"
+def PortApp = 80
+def PortContainer = 8200
 
 pipeline{
     agent any
-    options{
-        timeout(time: 1, unit: 'HOURS')
+  stages{
+
+    /*stage('Clone Repository'){
+        steps{
+            git (branch: 'main', credentialsId: credential, url: repository)
+        }
+    }*/
+
+    stage('Build Docker Image'){
+        steps{
+            script{
+                sh "docker build -t ${IMAGE_TAG_DEV} ."
+            }
+        }
     }
 
-    stages{
-        stage('Clone'){
-            steps{
-                git (branch: 'main', credentialsId: credential, url: repository)
-            }
-            
-        }
-
-
-        stage('Build image'){
-            steps{
-                script{
-                   /* sh '''
-                        cd house_innovation '''
-                        */
-                    docker.build(image, '.')
-                }
-            }
-         
-        }
-
-        stage('test acceptance'){
-            steps{
-                script{
-                    
-                    docker.image(image).withRun("-p "+portContainer+":"+portApp+" --name "+nomProjet+"-test-$BUILD_ID"){ c ->
-                    sh 'sleep 20s'
-                    sh '''curl localhost:'''+portContainer+''' | grep -q "Author: Roody95"'''
-                    }
-                }
-                
-            }
-
-        }
-
-        stage('push sur la registry dev'){
-            /*
-                when {
-                        expression {GIT_BRANCH =="origin/develop"}
-                }
-        */
-        /*steps{
+    stage('Test acceptance'){
+        steps{
             script{
-                sh '''
-                    docker login -u $userdoker -p $PASSWORDDOCKER
-                    docker tag $image $userdocker/$image:$IMAGE_DEV_TAG
-                    docker push $userdocker/$image:$IMAGE_DEV_TAG
-                '''
-            }
-        } */
-            steps{
-                script{
-                    docker.withRegistry(registry, credential){
-                   
-                     sh 'docker tag'+image+' '+image+'_dev:tagVersion'+version
-                     sh 'docker push '+image+'_dev:tagVersion'+version
-               
-                    }
-                }
+                
+                sh "docker run --name ${IMAGE_NAME}${BUILD_ID} -d -p ${PortContainer}:${PortApp} ${IMAGE_TAG_DEV}"
+                sh "curl localhost:${PortContainer} | grep -q 'Author: Roody95'"
+                sh "docker stop ${IMAGE_NAME}${BUILD_ID}"
+                sh "docker rm ${IMAGE_NAME}${BUILD_ID}"
+
             }
         }
-        /*stage('push sur la registry Production'){
-            
-                when {
-                        expression {GIT_BRANCH =="origin/main"}
-                }
-        
-            steps{
-                script{
-                    docker.withRegistry(registryProd, credential){
-                   
-                     sh 'docker tag'+image+' '+image+'_prod:tagVersion'+version
-                     sh 'docker push '+image+'_prod:tagVersion'+version
-               
-                    }
-                }
+    }
+
+    stage('scan vulnerabilte image'){
+        steps{
+            script{
+                sh "trivy image --no-progress --exit-code 1 --severity HIGH ${IMAGE_TAG_DEV}"
             }
-        }*/
+        }
+    }
+    stage('Push DEV sur dockerhub'){
+        when {
+            expression {GIT_BRANCH =="origin/develop"}
+        }
+        steps{
+            script{
+              
+                sh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASSWORD}"
+                sh "docker push ${IMAGE_TAG_DEV}"
+                 
+            }
+        }
+    }
+    stage('Push Prod sur dockerhub'){
+        when {
+            expression {GIT_BRANCH =="origin/main"}
+        } 
+        steps{
+            script{
+                sh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASSWORD}"
+                sh "docker tag ${IMAGE_TAG_DEV} ${IMAGE_TAG_PROD}"
+                sh "docker push ${IMAGE_TAG_PROD}"
+            }
+        }
+    }
 
-
-        stage('supression des images en local'){
+    stage('supression des images en local'){
           steps{
             script{
-              sh '''docker images |grep "'''+image+'''" | awk '{ print $3 }' | xargs --no-run-if-empty docker rmi -f'''
+              sh '''docker images |grep "'''+DOCKER_ID+'''" | awk '{ print $3 }' | xargs --no-run-if-empty docker rmi -f'''
               sh '''docker images | awk '/^<none>/ { print $3 }' | xargs --no-run-if-empty docker rmi -f'''
               sh 'echo "image suprimé"'
             }
           }
         }
 
-            
-    }
-    
+
+}
+    /*post {
+        failure {
+            mail to: USER_EMAIL,
+            subject: "FAIL JOB, BUILD : ${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "échec du job :${currentBuild.currentResult}, le projet ${PROJET},\n
+             Comit par: ${env.GIT_AUTHOR},message commit : ${env.GIT_COMMIT_MSG}, Brache : ${env.JOB_NAME} / ${GIT_BRANCH}"
+        }
+    }*/
 }
