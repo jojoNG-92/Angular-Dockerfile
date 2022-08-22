@@ -8,9 +8,10 @@ def repository = "https://github.com/Tajjospin/house_innovation_test.git"
 def portApp = 80
 def portContainer = 8100
 def nomImgae = userdocker+"/"+nomProjet
-def version = "-$BUIL_ID"
-def image = nomImgae+"_dev:tagVersion-$BUILD_ID"
-def imageProd = nomImgae+"_prod:tagVersion-$BUILD_ID"
+/*def version = "-$BUIL_ID"*/
+/*def image = nomImgae+"_dev:tagVersion-$BUILD_ID"*/
+def image = nomImgae+"_dev:tagVersion-2"
+/*def imageProd = nomImgae+"_prod:tagVersion-$BUILD_ID"*/
 def containerName = "devops-"+userGithub+"-"+nomProjet
 
 
@@ -41,7 +42,7 @@ pipeline{
         stage('test acceptance'){
             steps{
                 script{
-                    docker.image(image).withRun("-p "+portContainer+":"+portApp+" --name "+nomProjet+"-test-$BUILD_ID"){ c ->
+                    docker.image(image).withRun("-p "+portContainer+":"+portApp+" --name "+nomProjet+"-test-BUILD_ID"){ c ->
                     sh 'sleep 20s'
                     sh '''curl localhost:'''+portContainer+''' | grep -q "Author: Roody95"'''
                     }
