@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: houseInnovation
+   namespace: {{ NAMESPACE }}
+   labels:
+      app: houseInnovation
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: houseInnovation
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  minReadySeconds: 2 #intervalle de lancement de mise à jour de chaque pods
+  template:
+    metadata:
+      labels:
+        app: houseInnovation
+      annotations:
+        kubernetes.io/change-cause: "mise à jour de l'image "
+    spec:
+      containers:
+      - image: {{ IMAGE_NAME }}:{{ TAG_IMAGE }}
+        imagePullPolicy: Always
+        name: houseInnovation
+        ports:
+        - containerPort: {{ CONTAINER_PORT }}
+       

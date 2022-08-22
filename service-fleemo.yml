@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ NAMESPACE }}
+  labels:
+    app: houseinnovation-service
+  name: houseinnovation-service
+ 
+spec:
+  ports:
+  - name: houseinnovation-port
+    port: {{ SERVICE_PORT }}
+    protocol: TCP
+    targetPort: {{ TARGET_PORT }}
+  selector:
+    app: houseInnovation
+  type: ClusterIP
+status:
+  loadBalancer: {}
