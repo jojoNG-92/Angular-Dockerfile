@@ -45,10 +45,10 @@ pipeline{
         }
     }
 
-    stage('test vulnerabilte image'){
+    stage('scan vulnerabilte image'){
         steps{
             script{
-                sh "docker --no-progress --exit-code 1 --severity HIGH,CRITICAL ${IMAGE_TAG_DEV}"
+                sh "trivy --no-progress --exit-code 1 --severity HIGH,CRITICAL ${IMAGE_TAG_DEV}"
             }
         }
     }
