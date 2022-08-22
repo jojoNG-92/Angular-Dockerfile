@@ -3,15 +3,15 @@
 def userdocker = "anogo"
 def credential = "dockerHub"
 def registry = "https://hub.docker.com"
-def nomProjet = "Test-house-innovation"
+def nomProjet = "test-house-innovation"
 def repository = "https://github.com/Tajjospin/house_innovation.git"
 def portApp = 80
 def portContainer = 8100
 def nomImgae = userdocker+"/"+nomProjet
 /*def version = "-$BUIL_ID"*/
 /*def image = nomImgae+"_dev:tagVersion-$BUILD_ID"*/
-def image = nomImgae+"_dev:tagVersion-2"
-/*def imageProd = nomImgae+"_prod:tagVersion-$BUILD_ID"*/
+def image = nomImgae+"-dev:tagVersion-2"
+/*def imageProd = nomImgae+"-prod:tagVersion-$BUILD_ID"*/
 /*def containerName = "devops-"+userGithub+"-"+nomProjet*/
 
 
