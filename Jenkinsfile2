@@ -1,4 +1,5 @@
-/* Author: Jospin Anogo   anogoj@gmail.com */
+/* Author: Jospin Anogo   anogoj@gmail.com 
+prérequis: configure une variable "DOCKER_PASSWORD" dans les paramêtres du serveur jenkins*/
 
 def DOCKER_ID = "anogo"
 def IMAGE_NAME = "house-innovation"
@@ -31,7 +32,7 @@ pipeline{
             script{
                 
                 sh "docker run --name $IMAGE_NAME -d -p ${PortContainer}:${PortApp} ${IMAGE_TAG_DEV}"
-                sh "curl localhost:${PortContainer} | grep -q "Author: Roody95""
+                sh '''curl localhost:${PortContainer} | grep -q "Author: Roody95"'''
                 sh "docker stop ${IMAGE_NAME}"
                 sh "docker rm ${IMAGE_NAME}"
 
