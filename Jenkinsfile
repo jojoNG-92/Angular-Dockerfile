@@ -1,7 +1,7 @@
 /* Author: Jospin Anogo   anogoj@gmail.com 
 prérequis: 
 1) configurer une variable "DOCKER_PASSWORD" dans les paramêtres du serveur jenkins
-2) configurer les "notifications par email" sur le serveur jenkins, mois j'ai utilisé "gmail;com"
+2) configurer les "notifications par email" sur le serveur jenkins, mois j'ai utilisé "gmail.com"
 3) installer "trivy" sur le serveur jenkins 
 */
 def PROJET = "Test House innovation"
