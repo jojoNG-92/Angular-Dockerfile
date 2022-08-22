@@ -93,8 +93,8 @@ pipeline{
     post {
         failure {
             mail to: "${USER_EMAIL}",
-            subject: "FAIL JOB, BUILD : ${currentBuild.currentResult}: ${env.JOB_NAME}",
-            body: "échec du job :${currentBuild.currentResult}, le projet ${PROJET},\n Comit par: ${env.GIT_AUTHOR},message commit : ${env.GIT_COMMIT_MSG}, Branche : ${env.JOB_NAME} / ${GIT_BRANCH}"
+            subject: "ECHEC DU JOB, BUILD-${BUILD_ID} : ${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "échec du job :${currentBuild.currentResult}, le projet : ${PROJET},\n Comit par: ${env.GIT_AUTHOR},message commit : ${env.GIT_COMMIT_MSG}, Branche : ${env.JOB_NAME} / ${GIT_BRANCH}"
         }
     }
 }
