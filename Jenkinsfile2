@@ -1,5 +1,9 @@
 /* Author: Jospin Anogo   anogoj@gmail.com 
-prérequis: configure une variable "DOCKER_PASSWORD" dans les paramêtres du serveur jenkins*/
+prérequis: 
+1) configurer une variable "DOCKER_PASSWORD" dans les paramêtres du serveur jenkins
+2) configurer les "notifications par email" sur le serveur jenkins, mois j'ai utilisé "gmail;com"
+
+*/
 def PROJET = "Test House innovation"
 def DOCKER_ID = "anogo"
 def USER_EMAIL = "anogoj@gmail.com"
@@ -44,7 +48,7 @@ pipeline{
     stage('test vulnerabilte image'){
         steps{
             script{
-                echo 'nous cherchons comment intégrer le test'
+                sh "docker --no-progress --exit-code 1 --severity HIGH,CRITICAL ${IMAGE_TAG_DEV}"
             }
         }
     }
@@ -89,8 +93,9 @@ pipeline{
     /*post {
         failure {
             mail to: USER_EMAIL,
-            subject: "FAIL JOB, BUILD : ${BUILD_ID}",
-            body: "échec du job : le projet ${PROJET}, Comit par: ${env.GIT_AUTHOR},message commit : ${env.GIT_COMMIT_MSG}, Brache : ${env.JOB_NAME} / ${GIT_BRANCH}"
+            subject: "FAIL JOB, BUILD : ${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "échec du job :${currentBuild.currentResult}, le projet ${PROJET},\n
+             Comit par: ${env.GIT_AUTHOR},message commit : ${env.GIT_COMMIT_MSG}, Brache : ${env.JOB_NAME} / ${GIT_BRANCH}"
         }
     }*/
 }
