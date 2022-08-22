@@ -33,8 +33,9 @@ pipeline{
         stage('Build image'){
             steps{
                 script{
-                    sh '''
+                   /* sh '''
                         cd house_innovation '''
+                        */
                     docker.build(image, '.')
                 }
             }
