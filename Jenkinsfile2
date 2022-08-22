@@ -29,12 +29,11 @@ pipeline{
     stage('Test acceptance'){
         steps{
             script{
-                sh '''
-                docker run --name $IMAGE_NAME -d -p $PortContainer:$PortApp $IMAGE_TAG_DEV
-                curl localhost:$PortContainer | grep -q "Author: Roody95"
-                docker stop $IMAGE_NAME
-                docker rm $IMAGE_NAME
-                '''
+                
+                sh "docker run --name $IMAGE_NAME -d -p ${PortContainer}:${PortApp} ${IMAGE_TAG_DEV}"
+                sh "curl localhost:${PortContainer} | grep -q "Author: Roody95""
+                sh "docker stop ${IMAGE_NAME}"
+                sh "docker rm ${IMAGE_NAME}"
 
             }
         }
@@ -50,10 +49,10 @@ pipeline{
     stage('Push sur dockerhub'){
         steps{
             script{
-              sh '''
-                 docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
-                 docker push $DOCKER_ID/$IMAGE_NAME:$IMAGE_TAG_DEV
-                 '''
+              
+                sh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASSWORD}"
+                sh "docker push ${DOCKER_ID}/${IMAGE_NAME}:${IMAGE_TAG_DEV}"
+                 
             }
         }
     }
