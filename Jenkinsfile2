@@ -48,7 +48,10 @@ pipeline{
             }
         }
     }
-    stage('Push sur dockerhub'){
+    stage('Push DEV sur dockerhub'){
+        when {
+            expression {GIT_BRANCH =="origin/develop"}
+        }
         steps{
             script{
               
