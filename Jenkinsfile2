@@ -1,0 +1,63 @@
+/* Author: Jospin Anogo   anogoj@gmail.com */
+
+def DOCKER_ID = "anogo"
+def IMAGE_NAME = "house-innovation"
+def IMAGE_TAG_DEV = DOCKER_ID+"/"+IMAGE_NAME+"-dev:$BUILD_ID"
+def IMAGE_TAG_PROD = DOCKER_ID+"/"+IMAGE_NAME+"-prod:$BUILD_ID"
+def REPOSITORY = "https://github.com/Tajjospin/house_innovation.git"
+def PortApp = 80
+def PortContainer = 8200
+
+pipeline{
+    agent any
+  stages{
+
+    stage('Clone Repository'){
+        steps{
+            git (branch: 'main', credentialsId: credential, url: repository)
+        }
+    }
+
+    stage('Build Docker Image'){
+        steps{
+            script{
+                sh '''
+                docker build -t $IMAGE_TAG_DEV .
+                '''
+            }
+        }
+    }
+
+    stage('Test acceptance'){
+        steps{
+            script{
+                sh '''
+                docker run --name $IMAGE_NAME -d -p $PortContainer:$PortApp $IMAGE_TAG_DEV
+                curl localhost:$PortContainer | grep -q "Author: Roody95"
+                docker stop $IMAGE_NAME
+                docker rm $IMAGE_NAME
+                '''
+
+            }
+        }
+    }
+
+    stage('test vulnerabilte image'){
+        steps{
+            script{
+                echo 'nous cherchons comment intégrer le test'
+            }
+        }
+    }
+    stage('Push sur dockerhub'){
+        script{
+            sh '''
+            docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
+            docker push $DOCKER_ID/$IMAGE_NAME:$IMAGE_TAG_DEV
+            '''
+        }
+    }
+
+
+}
+}
