@@ -1,16 +1,17 @@
 /* Author: Jospin Anogo   anogoj@gmail.com */
 
 def userdocker = "anogo"
-def credential = "dockerHub"
+def credentialID = "dockerHub"
 def registry = "https://hub.docker.com"
 def nomProjet = "Test-house-innovation"
 def repository = "https://github.com/Tajjospin/house_innovation.git"
 def portApp = 80
 def portContainer = 8100
 def nomImgae = userdocker+"/"+nomProjet
-/*def version = "-$BUIL_ID"*/
-/*def image = nomImgae+"_dev:tagVersion-$BUILD_ID"*/
-def image = nomImgae+"_dev:tagVersion-2"
+def version = "-$BUIL_ID"
+def IMAGE_DEV_TAG = "-dev:Version-$BUILD_ID"
+def image = nomImgae+"_dev:tagVersion-$BUILD_ID"*
+/*def image = nomImgae+"_dev:tagVersion-2"*/
 /*def imageProd = nomImgae+"_prod:tagVersion-$BUILD_ID"*/
 /*def containerName = "devops-"+userGithub+"-"+nomProjet*/
 
@@ -46,7 +47,7 @@ pipeline{
             steps{
                 script{
                     
-                    docker.image(image).withRun("-p "+portContainer+":"+portApp+" --name "+nomProjet+"-test-BUILD_ID"){ c ->
+                    docker.image(image).withRun("-p "+portContainer+":"+portApp+" --name "+nomProjet+"-test-$BUILD_ID"){ c ->
                     sh 'sleep 20s'
                     sh '''curl localhost:'''+portContainer+''' | grep -q "Author: Roody95"'''
                     }
@@ -62,6 +63,15 @@ pipeline{
                         expression {GIT_BRANCH =="origin/develop"}
                 }
         */
+        /*steps{
+            script{
+                sh '''
+                    docker login -u $userdoker -p $PASSWORDDOCKER
+                    docker tag $image $userdocker/$image:$IMAGE_DEV_TAG
+                    docker push $userdocker/$image:$IMAGE_DEV_TAG
+                '''
+            }
+        }*/
             steps{
                 script{
                     docker.withRegistry(registry, credential){
