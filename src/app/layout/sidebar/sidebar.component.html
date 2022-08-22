@@ -1,0 +1,30 @@
+<div class="side-bar"
+  [ngStyle]="sideState === true ? {'width':'80px', 'transition':'all .2s ease-in-out'}:{'width':'280px','transition':'all .2s ease-in-out'}">
+  <div class="side-bar-header">
+    <div class="logo"></div>
+    <div class="side-toggle p-0" (click)="toggleSideBar()">
+      <i class="fas fa-bars fa-2x" [ngStyle]="{'color':'#3171b7', 'cursor':'pointer'}"></i>
+    </div>
+  </div>
+  <div class="side-bar-body">
+    <div *ngIf="sideState === true" class="side-bar-reduce">
+        <div class="pav_box_menu">
+          <div class="pav_box_item"><a class="pav_box_link" routerLink="/home" routerLinkActive="active-link"><i class="fal fa-home"></i></a></div>
+          <div class="pav_box_item"><a class="pav_box_link" routerLink="/workspace" routerLinkActive="active-link"><i class="fal fa-folder"></i></a></div>
+          <div class="pav_box_item"><a class="pav_box_link" routerLink="/tasks" routerLinkActive="active-link"><i class="fal fa-tasks"></i></a></div>
+          <div class="pav_box_item"><a class="pav_box_link" routerLink="/book" routerLinkActive="active-link"><i class="fal fa-book"></i></a></div>
+          <div class="pav_box_item"><a class="pav_box_link" routerLink="/activity" routerLinkActive="active-link"><i class="fal fa-chart-line"></i></a></div>
+          <div class="pav_box_item"><a class="pav_box_link" routerLink="/team" routerLinkActive="active-link"><i class="fal fa-users"></i></a></div>
+          <div class="pav_box_item"><a class="pav_box_link" routerLink="/settings" routerLinkActive="active-link"><i class="fal fa-cogs"></i></a></div>
+        </div>
+    </div>
+  <div [ngStyle]="sideState === true ? {'width':'0px', 'transition':'all .1s ease-in-out'}:{'width':'100%','transition':'all .1s ease-in-out'}"
+      class="side-bar-scroll">
+      <perfect-scrollbar [autoPropagation]="true">
+        <div class="side-bar-menu">
+            <app-accordion [activeIds]="extraParameter"></app-accordion>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>

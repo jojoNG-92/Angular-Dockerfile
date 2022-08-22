@@ -1,0 +1,151 @@
+<div class="row">
+  <div class="col-md-5">
+    <div class="card card-h">
+      <div class="card-body p-2">
+
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <div class="search-container">
+              <i class="fal fa-search"></i>
+              <input type="text">
+            </div>
+
+            <div class="add_task">
+              <button class="btn-add-task" data-toggle="collapse" data-target="#addTask" aria-expanded="true"
+              aria-controls="addTask">
+                <i class="fal fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-2 collapse" id="addTask" aria-labelledby="heading">
+          <div class="col-md-12 text-center">
+            <form [formGroup]="taskForm">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default"><small>{{'Title'}}</small></span>
+                </div>
+                <input type="text" formControlName="title"  class="form-control" aria-label="Default"
+                  aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <small>{{'Task\'s description'}}</small></span>
+                </div>
+                <textarea  formControlName="description" class="form-control" aria-label="With textarea"></textarea>
+              </div>
+
+              <div class="text-center my-2">
+                  <button  *ngIf="btnState === false" class="btn btn-pry" [disabled]="taskForm.invalid" (click)="add()">
+                    <i *ngIf="spin === true" class="fas fa-spinner fa-spin"></i>
+                   <small>{{'Save'}}</small></button>
+                    <button *ngIf="btnState === true" class="btn btn-pry" [disabled]="taskForm.invalid" (click)="edit()">
+                    <i *ngIf="spin === true" class="fas fa-spinner fa-spin"></i>
+                    <small>{{'Edit'}}</small></button>
+                    &nbsp;<button class="btn"><i class="fal fa-times"></i></button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <perfect-scrollbar style="width: 100%;  height: 255px; padding-right: 10px;">
+        <div class="row" [@itemType]="tasks.length">
+          <div class="col-md-12">
+              <div class="card mb-2 cursor" [class.card-active]="selectedIndex === i" *ngFor="let item of tasks; let i = index" (click)="selection(i, item?.title)">
+                <div class="card-body p-2 flexible">
+                  <div class="left mt-2">
+                    <small class="title-color">{{item?.title}}</small>
+                  </div>
+                  <div class="right">
+                    <button class="btn">
+                      <i class="fal fa-file-alt"></i>
+                    </button>
+                    <button class="btn">
+                      <i class="fal fa-pen-alt" (click)="getItem(item,i)"></i>
+                    </button>
+                    <button class="btn" (click)="delete(i)">
+                      <i class="fal fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="card card-h">
+      <div class="card-header flexible p-1">
+        <div class="title-container ml-3">
+          <h6 class="mb-0 mg ">{{taskTitle}}</h6>
+        </div>
+        <div class="status-container">
+          <div class="shape-circle">
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="detail-part">
+              <div id="accordion">
+                <div class="card">
+                  <div class="card-header no-bb p-0 flex-c" id="headingOne">
+                    <h5 class="mb-0">
+                      <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        <small class="text-muted">{{'Tasks Progress'}}</small>
+                      </button>
+                    </h5>
+                    <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    aria-controls="collapseOne">
+                        <i class="fal fa-chevron-circle-down"></i>
+                    </button>
+                  </div>
+
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body p-2">
+                      <div class="progression">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="user-part mt-2">
+              <div class="card no-border shadow mb-2" *ngFor="let item of users">
+                <div class="contain px-2">
+                  <div class="user-informations">
+                    <img [src]="item?.avatar"
+                      class="shape" alt="">
+                    <div>
+                      <small><b>{{item?.name}}</b></small><br>
+                      <small>{{item?.grade}}</small>
+                    </div>
+                  </div>
+                  <div class="user-progress mt-2">
+                    <div class="progress">
+                      <div class="progress-bar" [style]="'color:'+ item?.color +  ';width:'+ item?.progression + '%'"></div>
+                    </div>
+                    <small>{{'In Progress ' + item?.progression + '%'}}</small>
+                  </div>
+
+                  <div class="actions mt-3">
+                    <i class="fal fa-power-off"></i>
+                    <i class="fal fa-sync-alt"></i>
+                    <i class="fal fa-file-alt"></i>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

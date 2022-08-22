@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-6 text-center">
+    <div style="display: block">
+      <canvas baseChart
+        [datasets]="bubbleChartData"
+        [options]="bubbleChartOptions"
+        [colors]="bubbleChartColors"
+        [legend]="bubbleChartLegend"
+        [chartType]="bubbleChartType">
+      </canvas>
+    </div>
+    <button class="btn" data-toggle="tooltip" data-placement="bottom" title="Update values" (click)="randomizeBull()">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+  </div>
+  <div class="col-md-6 text-center">
+      <div style="display: block;">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [legend]="barChartLegend" [chartType]="barChartType"
+        ></canvas>
+      </div>
+      <button class="btn"  data-toggle="tooltip" data-placement="bottom" title="Update values" (click)="randomizeBar()"><i class="fas fa-sync-alt"></i></button>
+  </div>
+</div>
+
+

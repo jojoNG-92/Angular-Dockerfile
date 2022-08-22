@@ -1,0 +1,110 @@
+.card-container {
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+  border-width: 0;
+  transition: all .2s;
+}
+
+.card-first {
+  background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%) !important;
+}
+
+.card-second {
+  background-image: radial-gradient(circle 248px at center, #a54a2e 0%, #af4429 47%, #bb3b14 100%) !important;
+}
+
+.card-three {
+  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%) !important;
+}
+
+.card-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  opacity: .8;
+  font-weight: bold;
+}
+
+.desc {
+  opacity: .5;
+  font-size: 12px;
+}
+
+.c__left,
+.c__right {
+  color: #ffff;
+}
+
+
+.icon-state {
+  display: block;
+  font-size: 2rem;
+  transition: all .4s ease-in-out;
+}
+
+.chart-state__container {
+  width: 100%;
+}
+
+
+/*  */
+
+
+@-webkit-keyframes puff-in-center {
+  0% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-filter: blur(4px);
+    filter: blur(4px);
+    opacity: 0
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1
+  }
+}
+
+@keyframes puff-in-center {
+  0% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    -webkit-filter: blur(4px);
+    filter: blur(4px);
+    opacity: 0
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1
+  }
+}
+
+
+.puff-in-center {
+  -webkit-animation: puff-in-center .7s cubic-bezier(.47, 0.000, .745, .715) both;
+  animation: puff-in-center .7s cubic-bezier(.47, 0.000, .745, .715) both
+}
+
+.btn-wave {
+  width: 40%;
+  height: 50px;
+  background-color: #ffff;
+  color: #3171b7;
+  border: 3px solid #3171b7;
+  border-radius: .45rem;
+}
+
+
+.btn-wave:hover {
+  background-color: #3171b7;
+  color: #ffff;
+  transition: all .5s ease-in-out;
+}

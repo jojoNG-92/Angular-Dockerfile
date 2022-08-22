@@ -1,0 +1,217 @@
+.card-active::before {
+  content: '';
+  height: 100%;
+  width: 6px;
+  background-color: #3171b7;
+  position: absolute;
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.card-color {
+  background-color: rgb(223, 219, 219);
+}
+
+.flexible {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left {
+  margin-left: 15px;
+}
+
+.right {
+  /* display: flex;
+  justify-content: space-between;
+  width: 70px;
+  margin-top: 7px; */
+}
+
+.card-h {
+  height: 520px;
+  background-color: #ffff;
+}
+
+.title-color {
+  color: rgb(102, 99, 99);
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-container i {
+  position: absolute;
+  top: 34%;
+  left: 5%;
+  color: #ccc;
+}
+
+.search-container input[type=text] {
+  width: 30px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  padding: 8px 10px 8px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+.search-container input[type=text]:focus {
+  width: 85%
+}
+
+.btn-pry {
+  background-color: #3171b7;
+  color: #fff;
+}
+
+.fa-file-alt {
+  color: rgb(102, 99, 99);
+}
+
+.fa-pen-alt {
+  color: #3171b7;
+}
+
+.btn-add-task {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  width: 50px;
+  height: 40px;
+  border-radius: .25rem;
+}
+
+.card-header {
+  background-color: #ffff;
+}
+
+.title-container {
+  display: block;
+  font-size: 24px;
+  color: rgb(141, 136, 136);
+}
+
+.shape-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #008080;
+}
+
+.mg {
+  margin-top: .35rem !important;
+}
+
+.contain {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shape {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid #3171b7;
+}
+
+.user-informations {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+}
+
+.progress {
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  font-size: .75rem;
+  background-color: #e9ecef;
+  border-radius: .25rem;
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #3f6ad8;
+  transition: width 0.6s ease;
+}
+
+.bg-success {
+  background-color: #3ac47d !important;
+}
+
+.user-progress {
+  width: 30%;
+}
+
+.actions {
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-bb {
+  border-bottom: 0px;
+}
+
+.shadow {
+  box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, .15) !important;
+}
+
+.progression {
+  width: 100%;
+  height: 90px;
+  margin: 10px;
+}
+
+.progression::before {
+  content: '';
+  width: 5px;
+  height: 100px;
+  position: absolute;
+  background-color: rgb(117, 116, 116);
+}
+
+.add_task {
+  position: absolute;
+  top: 0;
+  right: 3%;
+}
+
+.flex-c {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.card-header .fal {
+  transition: .3s transform ease-in-out;
+}
+
+.card-header .collapsed i {
+  transform: rotate(-180deg);
+}
+.item-line {
+  position: relative;
+}
+
+.item-line span{
+  height: 14px;
+  width: 14px;
+  background:  rgb(117, 116, 116);
+  position: absolute;
+  left: -0.8%;
+  top: 10px;
+  display: block;
+  border-radius: 20px;
+}

@@ -1,0 +1,41 @@
+
+
+
+<div class="card" style="height: 520px;">
+  <div class="card-body p-1">
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="float-right c-flex p-2">
+          <div class="input-container">
+            <input type="text" placeholder="Search here ..." [(ngModel)]="search">
+            <i class="text-muted fal fa-search"></i>
+          </div>
+
+          <div class="icon-container">
+            <button class="btn" (click)="switchIcon()">
+              <i [ngClass]="iconState"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-2 r-height">
+      <div class="col-md-2" *ngFor="let item of team">
+        <div class="card m-2">
+          <div class="card-body text-center pt-1">
+            <img [src]="item?.avatar" class="circle">
+            <div class="my-2">
+              <small class="text-muted">{{item?.name}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-btn-down">
+        <button class="btn" (click)="scroll()">
+          <i [ngClass]="icoChevron"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

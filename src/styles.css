@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/fontawesome5/css/all.css';
+@import './assets/fontawesome5/css/brands.css';
+@import './assets/fontawesome5/css/solid.css';
+@import './assets/fontawesome5/css/light.css';
+@import './assets/fontawesome5/css/fontawesome.css';
+
+
+
+body {
+  margin: 0%;
+  overflow-x: hidden;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+button {
+  outline: none!important;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+ul {
+  list-style: none!important;
+}
+
+
+select:focus, textarea:focus, input:focus {
+  box-shadow: none!important;
+  outline: none!important;
+}
+
+i {
+  cursor: pointer;
+}
+
+
+.circle {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #3171b7;
+  box-shadow: 1px 1px 4px .7px rgba(0, 0, 0, 0.03);
+}
+
+.bx-s {
+  box-shadow: 1px 1px 4px .7px rgba(0, 0, 0, 0.03);
+}
+
+.no-border {
+  border: none!important;
+}
+
+.fa-trash-alt,.fa-trash {
+  color: rgba(224, 46, 46, 0.685);
+}

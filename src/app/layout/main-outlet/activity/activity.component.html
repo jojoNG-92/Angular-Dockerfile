@@ -1,0 +1,80 @@
+<div class="card" style="height: 520px;">
+  <div class="card-body p-2">
+    <div class="row mt-2">
+      <div class="col-md-10 mx-auto">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-container card-first">
+              <div class="card-body card-flex p-2">
+                <div class="c__left">
+                  <span class="title">{{'Total Orders'}}</span>
+                  <br>
+                  <span class="desc">{{'Last year expenses'}}</span>
+                </div>
+                <div class="c__right pt-3">
+                  <span class="title">{{'1780'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-container card-second">
+              <div class="card-body card-flex p-2">
+                <div class="c__left">
+                  <span class="title">{{'Clients'}}</span>
+                  <br>
+                  <span class="desc">{{'Total Clients Profit'}}</span>
+                </div>
+                <div class="c__right pt-3">
+                  <span class="title">{{'$ 1000'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-container card-three">
+              <div class="card-body card-flex p-2">
+                <div class="c__left">
+                  <span class="title">{{'Followers'}}</span>
+                  <br>
+                  <span class="desc">{{'People Interested'}}</span>
+                </div>
+                <div class="c__right pt-3">
+                  <span class="title">{{'60%'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3">
+          <div class="col-md-12">
+            <div class="float-right">
+              <button class="btn" (click)="off()">
+                <i [ngClass]="bar"></i>
+              </button>
+              <button class="btn" (click)="on()">
+                <i [ngClass]="pie"></i>
+              </button>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-state__container">
+            <div *ngIf="state === true" class="pie__state puff-in-center">
+              <app-chart-pie></app-chart-pie>
+            </div>
+            <div *ngIf="state === false" class="bar__state puff-in-center">
+                <app-chart-bar></app-chart-bar>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-5 mx-auto text-center">
+            <button class="btn-wave">{{'View Report'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

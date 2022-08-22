@@ -1,0 +1,103 @@
+.accordion>.card {
+  box-shadow: 0 0 0 0 transparent !important;
+  border: none !important;
+  background: transparent !important;
+  position: relative !important;
+  display: block !important;
+  padding: 0.1rem 0 !important;
+}
+
+.card-header {
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  border: 0;
+  height: auto;
+  background: #fafbfc;
+  transition: all .2s ease-in-out;
+}
+
+.card-header:hover button {
+  background: #3171b7;
+  color: #ffffff;
+}
+
+
+.card-header button {
+  color: #3171b7;
+}
+
+.card-header .fa {
+  transition: .3s transform ease-in-out;
+}
+
+.card-header .collapsed i {
+  transform: rotate(-90deg);
+}
+
+.drop-links {
+  position: relative;
+}
+
+.drop-links::before {
+  content: '';
+  height: 100%;
+  opacity: 1;
+  width: 3px;
+  background: #3171b7;
+  position: absolute;
+  left: 20px;
+  top: 0;
+  border-radius: 15px;
+}
+
+.links-list {
+  padding: 0.75rem 0 0.75rem 2.25rem;
+}
+
+.list-item a {
+  display: block;
+  line-height: 2.4rem;
+  height: 2.4rem;
+  padding: 0 1.5rem 0 45px;
+  position: relative;
+  border-radius: .25rem;
+  color: #495057;
+  white-space: nowrap;
+  transition: all .2s;
+  text-decoration: none;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.side-bar-reduce i {
+  color: #3171b7;
+
+}
+
+.side-bar-reduce a {
+  cursor: pointer;
+}
+
+.item-active {
+  font-weight: bold;
+  color: #3171b7 !important;
+}
+
+.item-active i {
+  color: #3171b7 !important;
+}
+
+.dsh-header {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin: 0.75rem 0;
+  font-weight: bold;
+  color: #033C73;
+  white-space: nowrap;
+  position: relative;
+}

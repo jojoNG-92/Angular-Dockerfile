@@ -1,0 +1,47 @@
+.c-flex {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input {
+  padding-left: 6%;
+  padding-right: 13%;
+  border-radius: 1rem;
+  border: 1px solid #ced4da;
+  width: 100%;
+  padding-top: .45rem;
+  padding-bottom: .45rem;
+  font-size: 12px;
+}
+
+.input-container i {
+  position: absolute;
+  top: 30%;
+  right: 3%;
+  left: auto;
+}
+
+input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.r-height {
+  height: 370px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.scroll-btn-down {
+  position: absolute;
+  bottom: 10%;
+  right: 4%;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+}
