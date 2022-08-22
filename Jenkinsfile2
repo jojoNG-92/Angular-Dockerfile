@@ -31,10 +31,10 @@ pipeline{
         steps{
             script{
                 
-                sh "docker run --name ${IMAGE_NAME} -d -p ${PortContainer}:${PortApp} ${IMAGE_TAG_DEV}"
+                sh "docker run --name ${IMAGE_NAME}${BUILD_ID} -d -p ${PortContainer}:${PortApp} ${IMAGE_TAG_DEV}"
                 sh "curl localhost:${PortContainer} | grep -q 'Author: Roody95'"
-                sh "docker stop ${IMAGE_NAME}"
-                sh "docker rm ${IMAGE_NAME}"
+                sh "docker stop ${IMAGE_NAME}${BUILD_ID}"
+                sh "docker rm ${IMAGE_NAME}${BUILD_ID}"
 
             }
         }
